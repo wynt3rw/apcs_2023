@@ -1,6 +1,5 @@
 public class ParrotTrouble{
     public static void testParrotTrouble(int hour, boolean talking, boolean correct){
-        
         boolean result = parrotTrouble(hour, talking);
         
         if(result == correct){
