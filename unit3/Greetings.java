@@ -4,9 +4,14 @@ public class Greetings{
         return statement;
     }
     
+    public static void testGreetings(String name){
+        String result = greetings(name);
+        System.out.println(result);
+    }
+    
     public static void main(String[] args){
-        System.out.print(greetings("Valerie"));
-        System.out.print(greetings("Dahlia"));
-        System.out.print(greetings("Esperanza"));
+        testGreetings("Valerie");
+        testGreetings("Dahlia");
+        testGreetings("Esperanza");
     }
 }

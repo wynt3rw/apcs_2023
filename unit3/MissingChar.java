@@ -6,9 +6,14 @@ public class MissingChar{
         return front + back;
     }
     
+    public static void testMissingChar(String str, int n){
+        String result = missingChar(str, n);
+        System.out.print(str + n + result);
+    }
+    
     public static void main(String[] args){
-        System.out.print(missingChar("surfboard", 2));
-        System.out.print(missingChar("marine", 3));
-        System.out.print(missingChar("headphones", 5));
+        testMissingChar("surfboard", 2);
+        testMissingChar("marine", 3);
+        testMissingChar("headphones", 5);
     }
 }

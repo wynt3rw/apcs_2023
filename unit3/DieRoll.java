@@ -7,11 +7,14 @@ public class DieRoll{
         return roll;
     }
     
+    public static void testDieRoll(){
+        int result = dieRoll();
+        System.out.println(result);
+    }
+    
     public static void main(String[] args){
-// run five tests.
         for(int i = 0; i < 5; i = i + 1){
-            int result = dieRoll();
-            System.out.print(result);       
+            testDieRoll();     
         }
     }
 }

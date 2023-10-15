@@ -7,9 +7,14 @@ public class NotString{
         }
     }
     
+    public static void testNotString(String str){
+        String result = notString(str);
+        System.out.println(str + result);
+    }
+    
     public static void main(String[] args){
-        System.out.print(notString("perfume"));
-        System.out.print(notString("not cologne"));
-        System.out.print(notString("gorgeous"));
+        testNotString("perfume");
+        testNotString("not cologne");
+        testNotString("gorgeous");
     }
 }

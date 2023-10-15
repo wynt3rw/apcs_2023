@@ -12,9 +12,14 @@ public class CoinFlip{
         }
         
     }
+    
+    public static void testCoinFlip(){
+        System.out.println("flip: " + coinFlip());
+        }
+    
     public static void main(String[] args){
         for(int i = 0; i < 20; i = i + 1){
-            System.out.print(coinFlip());
+            testCoinFlip();
         }
     }
 }
