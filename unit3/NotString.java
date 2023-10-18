@@ -7,14 +7,20 @@ public class NotString{
         }
     }
     
-    public static void testNotString(String str){
+    public static void testNotString(String str, String expected){
         String result = notString(str);
-        System.out.println(str + result);
+        System.out.println(str + expected + result);
+
+        if(result == expected){
+            System.out.println("Already NotString!");
+        }else{
+            System.out.println("Required NotString.");
+        }
     }
     
     public static void main(String[] args){
-        testNotString("perfume");
-        testNotString("not cologne");
-        testNotString("gorgeous");
+        testNotString("perfume.", "not perfume.");
+        testNotString("not cologne.", "not cologne.");
+        testNotString("gorgeous.", "not gorgeous.");
     }
 }
