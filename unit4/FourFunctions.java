@@ -10,6 +10,21 @@ public class FourFunctions{
         return sum;
     }
     
+    public static int testSumOfSquares(int n, int expected){
+        int result = SumOfSquares(n);
+        System.out.println("The expected sum of the squares of " + n + " is " + expected + ". The actual answer is " + result);
+        
+        if(result == expected){
+            System.out.println("Success!");
+        }else{
+            System.out.println("Failure.");
+        }
+        
+        return result;
+    }
+    
+    
+    
     public static int CountOccurences(String whole, String part){
         int count = 0;
         int index = 0;
@@ -22,6 +37,22 @@ public class FourFunctions{
         return count;
     }
     
+    public static int testCountOccurences(String whole, String part, int expected){
+        int result = CountOccurences(whole, part);
+        System.out.println("Whole: " + whole + " Part: " + part + " Expected: " + expected + " Result: " + result);
+        
+        if(result == expected){
+            System.out.println("Success!");
+        }else{
+            System.out.println("Failure.");
+        }
+        
+        return result;
+        
+    }
+    
+    
+    
     public static String Reverse(String str){
         String rev = "";
         
@@ -31,6 +62,21 @@ public class FourFunctions{
         
         return rev;
     }
+    
+    public static String testReverse(String str, String expected){
+        String result = Reverse(str);
+        System.out.println("The expected reverse of " + str + " is " + expected + ". The actual reverse is " + result);
+        
+        if(result == expected){
+            System.out.println("Success!");
+        }else{
+            System.out.println("Failure.");
+        }
+    
+        return result;
+    }
+    
+    
     
     public static int Factorial(int n){
         int sum = 1;
@@ -43,21 +89,36 @@ public class FourFunctions{
         return sum;
     }
     
+    public static int testFactorial(int n, int expected){
+        int result = Factorial(n);
+        System.out.println("The expected sum of the factorials of " + n + " is " + expected + ". The actual sum is " + result);
+        
+        if(result == expected){
+            System.out.println("Success!");
+        }else{
+            System.out.println("Failure.");
+        }
+    
+        return result;
+    }
+    
+    
+    
     public static void main(String[] args){
-        System.out.println("The sum of the squares of four is " + SumOfSquares(4));
-        System.out.println("The sum of the squares of five is " + SumOfSquares(5));
-        System.out.println("The sum of the squares of six is " + SumOfSquares(6));
+        testSumOfSquares(4, 30);
+        testSumOfSquares(5, 10);
+        testSumOfSquares(6, 55);
 
-        System.out.println(CountOccurences("banananananana", "nana"));
-        System.out.println(CountOccurences("dododododo", "do"));
-        System.out.println(CountOccurences("random", "dom"));
+        testCountOccurences("banananananana", "nana", 4);
+        testCountOccurences("dododododo", "do", 5);
+        testCountOccurences("random", "dom", 2);
         
-        System.out.println(Reverse("Australia"));
-        System.out.println(Reverse("Ukraine"));
-        System.out.println(Reverse("Mexico"));
+        testReverse("Australia", "Australia");
+        testReverse("Ukraine", "Ukraine");
+        testReverse("Mexico", "Mexico");
         
-        System.out.println("The sum of the factorials of sixteen is " + Factorial(16));
-        System.out.println("The sum of the factorials of seventeen is " + Factorial(17));
-        System.out.println("The sum of the factorials of eighteen is " + Factorial(18));
+        testFactorial(16, 1226);
+        testFactorial(17, 1481);
+        testFactorial(18, 2021);
     }
 }
