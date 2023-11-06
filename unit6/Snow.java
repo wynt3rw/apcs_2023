@@ -23,7 +23,7 @@ public class Snow{
         position.add(velocity);
         
         if(position.y > p.height){
-            position.y = 0;
+            position.y = 0 - radius;
         }
     }
 }
