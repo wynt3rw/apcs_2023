@@ -1,29 +1,32 @@
 import processing.core.*;
 
 public class Snow{
-    private PApplet p;
-    private PVector position;
-    private PVector velocity;
+    private PApplet papplet;
+    private float x;
+    private float y;
     private float radius;
-    private int c;
+    private float speed;
     
-    public Snow(PApplet p, PVector position, PVector velocity, float radius, int c){
-        this.p = p;
-        this.position = position.copy();
-        this.velocity = velocity.copy();
-        this.radius = radius;
-        this.c = c;
+    Snow(PApplet p){
+        papplet = p;
+        x = papplet.random(papplet.width);
+        y = papplet.random(papplet.height);
+        radius = papplet.random(5, 15);
+        speed = papplet.random(1,3);
+    }
+    
+    public void update(){
+        y = y + speed;
+        
+        if(y > papplet.height){
+            y = 0;
+            x = papplet.random(papplet.width);
+        }
     }
     
     public void display(){
-        p.fill(c);
-        p.noStroke();
-        p.ellipse(position.x, position.y, radius, radius);
-        
-        position.add(velocity);
-        
-        if(position.y > p.height){
-            position.y = 0 - radius;
-        }
+        papplet.noStroke();
+        papplet.fill(255);
+        papplet.ellipse(x, y, radius, radius);
     }
 }

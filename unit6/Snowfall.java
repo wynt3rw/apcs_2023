@@ -2,40 +2,29 @@ import processing.core.*;
 import java.util.*;
 
 public class Snowfall extends PApplet{
-    private ArrayList<Snow>snowflakes;
+    int snowflake = 80;
+    Snow[] snowflakes = new Snow[snowflake];
     
     public void settings(){
         size(400,400);
     }
     
     public void setup(){
-        snowflakes = new ArrayList<Snow>();
-        
-        for(int i = 0; i < 80; i = i + 1){
-            addSnow();
+        for(int i = 0; i < snowflake; i = i + 1){
+            snowflakes[i] = new Snow(this);
         }
-    }
-    
-    public void addSnow(){
-        PVector position = new PVector(width/2, height/2);
-        PVector velocity = PVector.random2D();
-        velocity.setMag(random(1,5));
-        float radius = random(5, 15);
-        int c = color(255, 255, 255);
-        
-        Snow s = new Snow(this, position, velocity, radius, c);
-        snowflakes.add(s);
     }
     
     public void draw(){
         background(0);
         
-        for(Snow s : snowflakes){
-            s.display();
+        for(Snow snowflake : snowflakes){
+            snowflake.update();
+            snowflake.display();
         }
     }
     
     public static void main(String[] args){
-        PApplet.main("Snow");
+        PApplet.main("Snowfall");
     }
 }
