@@ -1,38 +1,30 @@
-import java.util.*;
-
 public class ReverseAll{
     public static String reverse(String s){
-        char[] charArray = s.toCharArray();
-        int start = 0;
-        int end = s.length() - 1;
-        
-        while(start < end){
-            char temp = charArray[start];
-            charArray[end] = temp;
-            
-            start = start + 1;
-            end = end - 1;
+        StringBuilder reversed = new StringBuilder();
+        for(int i = s.length() - 1; i >= 0; i = i - 1){
+            reversed.append(s.charAt(i));
         }
-        
-        return new String(charArray);
+        return reversed.toString();
     }
     
     public static String[] reverseAll(String[] strings){
         String[] reversedStrings = new String[strings.length];
-        
         for(int i = 0; i < strings.length; i = i + 1){
             reversedStrings[i] = reverse(strings[i]);
         }
-        
         return reversedStrings;
     }
     
     public static void main(String[] args){
-        String[] originalWord = {"andromeda", "whirlpool", "sagittarius", "sunflower"};
+        String[] originalStrings = {"andromeda", "sunflower", "sagittarius"};
+        String[] reversedStrings = reverseAll(originalStrings);
         
-        String[] reversedStrings = reverseAll(originalWord);
+        for(String originalString : originalStrings){
+            System.out.println("Original Word: " + originalString);
+        }
         
-        System.out.println("Original Words: " + java.util.Arrays.toString(originalWord));
-        System.out.println("Reversed Words: " + java.util.Arrays.toString(reversedStrings));
+        for(String reversedString : reversedStrings){
+            System.out.println("Reversed Word: " + reversedString);
+        }
     }
 }
