@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Animal Calculator{
+public class AnimalCalculator{
     public static void printAnimalDetails(ArrayList<Animal>animals){
         for(Animal animal : animals){
             System.out.println("Name: " + animal.getName());
@@ -12,7 +12,7 @@ public class Animal Calculator{
     public static double calculateAverageLegs(ArrayList<Animal>animals){
         int totalLegs = 0;
         for(Animal animal : animals){
-            totalLegs = totalLegs _ animal.getLegCount();
+            totalLegs = totalLegs + animal.getLegCount();
         }
         
         return (double) totalLegs / animals.size();
