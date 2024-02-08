@@ -73,12 +73,9 @@ public class ArrayInitialization {
         }
 
         int[][] arrayD = new int[6][5];
-        int valueD = 101;
-
-        for (int i = 0; i < 6; i++) {
-            for (int x = 0; x < 5; x++) {
-                arrayD[i][x] = valueD;
-                valueD = valueD + 1;
+        for (int i = 0; i < 6; i = i + 1) {
+            for (int x = 0; x < 5; x = x + 1){
+                arrayD[i][x] = i + 1;
             }
         }
 
