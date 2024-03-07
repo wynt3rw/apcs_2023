@@ -1,114 +1,135 @@
 import processing.core.*;
 import processing.core.PApplet;
-import java.util.ArrayList;
 
 public class Platformer extends PApplet {
 
     int playerX, playerY;
-    int playerWidth = 20;
-    int playerHeight = 20;
-    int gravity = 1;
-    int jumpSpeed = -15;
-    int moveSpeed = 5;
-    
+    int playerWidth = 40, playerHeight = 40;
+    int groundY;
     boolean isJumping = false;
-    boolean isOnGround = false;
+    int jumpStrength = 12;
+    int gravity = 1;
     
-    ArrayList<Platform> platforms = new ArrayList<>();
+    int enemy1X, enemy1Y, enemy2X, enemy2Y, enemy3X, enemy3Y;
+    int enemySize = 30;
+    int enemySpeed = 2;
 
+    boolean gameOver = false;
+    
     public void settings() {
-        size(600, 400);
+        size(800, 800);
     }
-
+    
     public void setup() {
-        frameRate(60);
         playerX = width / 2;
-        playerY = height / 2;
-
-        generatePlatforms();
+        playerY = height - playerHeight;
+        groundY = height - 50;
+        
+        enemy1X = width;
+        enemy1Y = groundY - enemySize;
+        enemy2X = width + 300;
+        enemy2Y = groundY - enemySize;
+        enemy3X = width + 600;
+        enemy3Y = groundY - enemySize;
     }
-
+    
     public void draw() {
         background(255);
-
-        fill(255, 0, 0);
-        rect(playerX, playerY, playerWidth, playerHeight);
-
-        for (Platform platform : platforms) {
-            platform.display();
-        }
-
-        if (!isOnGround) {
-            playerY += gravity;
-        }
-
-        for (Platform platform : platforms) {
-            if (playerX + playerWidth > platform.x && playerX < platform.x + platform.width &&
-                    playerY + playerHeight > platform.y && playerY < platform.y + platform.height) {
-                playerY = platform.y - playerHeight;
-                isOnGround = true;
-                break;
-            } else {
-                isOnGround = false;
-            }
-        }
-
-        if (playerY > height) {
-            gameOver();
-        }
-    }
-
-    public void keyPressed() {
-        if (keyCode == LEFT) {
-            playerX -= moveSpeed;
-        } else if (keyCode == RIGHT) {
-            playerX += moveSpeed;
-        } else if (keyCode == ' ' && !isJumping && isOnGround) {
-            playerY += jumpSpeed;
-            isJumping = true;
-        }
-    }
-
-    public void keyReleased() {
-        if (keyCode == ' ') {
-            isJumping = false;
-        }
-    }
-
-    public void gameOver() {
-        playerX = width / 2;
-        playerY = height / 2;
-
-        generatePlatforms();
-    }
-
-    public void generatePlatforms() {
-        platforms.clear();
-        for (int i = 0; i < 5; i++) {
-            int x = (int) random(width - 200);
-            int y = (int) random(height - 100);
-            int w = (int) random(50, 200);
-            int h = 20;
-            platforms.add(new Platform(x, y, w, h));
-        }
-    }
-    
-    public class Platform {
-    int x, y, width, height;
-
-     public  Platform(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-     public void display() {
+        
+        // Draw ground
+        fill(100);
+        rect(0, groundY, width, height - groundY);
+        
+        // Draw player
         fill(0, 0, 255);
-        rect(x, y, width, height);
+        rect(playerX, playerY, playerWidth, playerHeight);
+        
+        // Draw enemies
+        fill(255, 0, 0);
+        rect(enemy1X, enemy1Y, enemySize, enemySize);
+        rect(enemy2X, enemy2Y, enemySize, enemySize);
+        rect(enemy3X, enemy3Y, enemySize, enemySize);
+        
+        if (!gameOver) {
+            // Update player position
+            if (keyPressed) {
+                if (keyCode == LEFT) {
+                    playerX -= 5;
+                } else if (keyCode == RIGHT) {
+                    playerX += 5;
+                } 
+                
+                if (keyCode == 'C' && !isJumping) {
+                    isJumping = true;
+                }
+            }
+            
+            // Apply gravity
+            if (playerY < groundY - playerHeight) {
+                playerY += gravity;
+            } else {
+                playerY = groundY - playerHeight;
+                isJumping = false;
+            }
+            
+            // Update enemy position
+            enemy1X -= enemySpeed;
+            enemy2X -= enemySpeed;
+            enemy3X -= enemySpeed;
+            
+            // Check for collisions
+            if (collision(playerX, playerY, playerWidth, playerHeight, enemy1X, enemy1Y, enemySize, enemySize) ||
+                collision(playerX, playerY, playerWidth, playerHeight, enemy2X, enemy2Y, enemySize, enemySize) ||
+                collision(playerX, playerY, playerWidth, playerHeight, enemy3X, enemy3Y, enemySize, enemySize)) {
+                gameOver = true;
+            }
+            
+            // Check if player has reached the end
+            if (playerX + playerWidth >= width) {
+                textSize(32);
+                fill(0, 255, 0);
+                text("You Win!", width/2 - 100, height/2);
+                noLoop();
+            }
+        } else {
+            // Display restart button
+            textSize(32);
+            fill(255, 0, 0);
+            text("Game Over!", width/2 - 100, height/2);
+            fill(0);
+            rect(width/2 - 50, height/2 + 50, 100, 50);
+            fill(255);
+            text("Restart", width/2 - 40, height/2 + 85);
+        }
     }
-}
     
+    boolean collision(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2) {
+        return x1 < x2 + w2 &&
+               x1 + w1 > x2 &&
+               y1 < y2 + h2 &&
+               y1 + h1 > y2;
+    }
+    
+    public void mousePressed() {
+        if (gameOver && mouseX > width/2 - 50 && mouseX < width/2 + 50 && mouseY > height/2 + 50 && mouseY < height/2 + 100) {
+            restart();
+        }
+    }
+    
+    void restart() {
+        playerX = width / 2;
+        playerY = height - playerHeight;
+        
+        enemy1X = width;
+        enemy1Y = groundY - enemySize;
+        enemy2X = width + 300;
+        enemy2Y = groundY - enemySize;
+        enemy3X = width + 600;
+        enemy3Y = groundY - enemySize;
+        
+        gameOver = false;
+        loop();
+    }
     
     public static void main(String[] args) {
         PApplet.main("Platformer");
