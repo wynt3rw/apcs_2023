@@ -1,10 +1,4 @@
-void drawArchMandala(int numOuterArches, 
-int numInnerArches, 
-float baseOuterRadius,
-float baseInnerRadius,
-int numPetals,
-float distanceFactor,
-float speed){
+void drawArchMandala(int numOuterArches, int numInnerArches, float baseOuterRadius, float baseInnerRadius, int numPetals, float distanceFactor, float speed){
    int totalArches = numOuterArches + numInnerArches + numPetals;
    
   //outer petal arches
@@ -21,6 +15,7 @@ float speed){
     lerpColor(startColor, endColor, amount), 1);
   }
   
+  // inner petal arches
   for(int i = 0; i < numInnerArches; i++){
     float amount = map(i + numPetals + numOuterArches, 0, totalArches - 1, 0.0, 1.0);
     drawArch(
