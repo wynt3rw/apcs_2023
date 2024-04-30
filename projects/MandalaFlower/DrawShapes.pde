@@ -1,5 +1,6 @@
 void drawArch(float innerRadius, float outerRadius, int numArches, float offset, color c, float strokeSize){
   rotate(offset);
+  
   float angleBetween = 360f/numArches;
   float calculatedAngle = 90 - angleBetween/2f;
   

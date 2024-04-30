@@ -5,7 +5,6 @@ float centerX;
 float centerY;
 float moveSpeed = 1;
 
-// controllable parameters
 float outerArches;
 float innerArches;
 float outerRadius;
@@ -14,13 +13,11 @@ int numPetals;
 float distance;
 float controlPointOneX;
 float controlPointOneY;
-float controlPointTwoX;
 float controlPointTwoY;
 
-color startColor = color(0, 154, 255);
-color endColor = color(255, 208, 0);
+color startColor = color(209, 61, 91);
+color endColor = color(42, 173, 123);
 
-// user interface for controlling parameters
 ControlP5 cp5;
 Slider outerArchSlider;
 Slider innerArchSlider;
@@ -32,7 +29,6 @@ ColorPicker startColorPicker;
 ColorPicker endColorPicker;
 Slider oneXSlider;
 Slider oneYSlider;
-Slider twoXSlider;
 Slider twoYSlider;
 
 int sliderSize = 200;
@@ -41,6 +37,7 @@ int colorPickerSize = 200;
 ControlFont font;
 
 boolean isHardcoded;
+
 
 void setup() {
   size(1400, 900);
@@ -55,7 +52,6 @@ void setup() {
   float topAlign = centerY - height/2.25;
   float bottomAlign = centerY + height/2.45;
  
-  // initial values
   outerArches = 5;
   innerArches = 5;
   outerRadius = 200;
@@ -64,10 +60,8 @@ void setup() {
   distance = 1;
   controlPointOneX = 1;
   controlPointOneY = 1;
-  controlPointTwoX = 1;
   controlPointTwoY = 1;
   
-  // mandala shape sliders
   cp5 = new ControlP5(this);
   
   outerArchSlider = cp5.addSlider("# Outer Arches")
@@ -115,13 +109,13 @@ void setup() {
             .setRange(-4, 4)
             .setValue(distance); 
 
-  oneXSlider = cp5.addSlider("Control Point 1 X")
+  oneXSlider = cp5.addSlider("Petal Shape Editor")
             .setPosition(leftAlign, bottomAlign - 90)
             .setSize(sliderSize, 20) 
             .setRange(-4, 4) 
             .setValue(controlPointOneX); 
             
-  oneYSlider = cp5.addSlider("Control Point 1 Y")
+  oneYSlider = cp5.addSlider("Outer Petal Size Editor")
             .setPosition(leftAlign, bottomAlign - 60)
             .setSize(sliderSize, 20) 
             .setRange(-4, 4) 
@@ -131,14 +125,8 @@ void setup() {
                     .setPosition(leftAlign, bottomAlign - 30)
                     .setSize(colorPickerSize, colorPickerSize) 
                     .setColorValue(startColor);
-  
-  twoXSlider = cp5.addSlider("Control Point 2 X")
-            .setPosition(rightAlign - 50, bottomAlign - 90)
-            .setSize(sliderSize, 20)
-            .setRange(-4, 4)
-            .setValue(controlPointTwoX); 
             
-  twoYSlider = cp5.addSlider("Control Point 2 Y")
+  twoYSlider = cp5.addSlider("Inner Petal Size Editor")
             .setPosition(rightAlign - 50, bottomAlign - 60)
             .setSize(sliderSize, 20)
             .setRange(-4, 4) 
@@ -152,8 +140,8 @@ void setup() {
   isHardcoded = false;
 }
 
-void draw() {
 
+void draw() {
     background(0);
     noFill();
     translate(centerX, centerY);
@@ -167,32 +155,22 @@ void draw() {
     resetMatrix();
 }
 
+
 void drawHardcodedMandala(){
-  
   controlPointOneX = 3.77;
   controlPointOneY = 1.13;
-  controlPointTwoX = 1.57;
   controlPointTwoY = 0.81;
   
   startColor = color(0, 114, 255, 42);
   endColor = color(235, 189, 0, 43);
   
-   drawArchMandala(
-      9,  
-      10,    
-      191.94,  
-      314, 
-      7,  
-      0.85,
-      moveSpeed
-    );
-    moveSpeed+=0.001;
+   drawArchMandala(9, 10, 191.94, 314, 7, 0.85, moveSpeed);
+   moveSpeed+=0.001;
     
-    cp5.setVisible(false);
+   cp5.setVisible(false);
 }
 
 void drawControllableMandala(){
-  
     startColor = startColorPicker.getColorValue();
     endColor = endColorPicker.getColorValue();
    
