@@ -13,7 +13,7 @@ int numPetals;
 float distance;
 float controlPointOneX;
 float controlPointOneY;
-float controlPointTwoY;
+float controlPointTwoX;
 
 color startColor = color(209, 61, 91);
 color endColor = color(42, 173, 123);
@@ -60,7 +60,7 @@ void setup() {
   distance = 1;
   controlPointOneX = 1;
   controlPointOneY = 1;
-  controlPointTwoY = 1;
+  controlPointTwoX = 1;
   
   cp5 = new ControlP5(this);
   
@@ -130,7 +130,7 @@ void setup() {
             .setPosition(rightAlign - 50, bottomAlign - 60)
             .setSize(sliderSize, 20)
             .setRange(-4, 4) 
-            .setValue(controlPointTwoY); 
+            .setValue(controlPointTwoX); 
             
   endColorPicker = cp5.addColorPicker("End Color")
                     .setPosition(rightAlign - 50, bottomAlign - 30)
@@ -159,7 +159,7 @@ void draw() {
 void drawHardcodedMandala(){
   controlPointOneX = 3.77;
   controlPointOneY = 1.13;
-  controlPointTwoY = 0.81;
+  controlPointTwoX = 0.81;
   
   startColor = color(0, 114, 255, 42);
   endColor = color(235, 189, 0, 43);
